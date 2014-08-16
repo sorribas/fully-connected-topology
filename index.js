@@ -69,16 +69,13 @@ var create = function(myAddr, addreses) {
 
   update();
   setInterval(update, 1000);
-  setInterval(function() {console.log(Object.keys(connections));}, 4000);
 
   that.add = function(addr) {
     if (!~addreses.indexOf(addr)) addreses.push(addr);
-    console.log(addreses);
   };
 
   that.remove = function(addr) {
     if (~addreses.indexOf(addr)) addreses.splice(addreses.indexOf(addr), 1);
-    console.log(addreses);
   };
 
   return that;
