@@ -16,10 +16,19 @@ var create = function(myAddr, addreses) {
   addreses =  addreses || [];
 
   var server = net.createServer(function(socket) {
+    var addr;
     lpm.read(socket, function(buf) {
-      var addr = buf.toString();
+      addr = buf.toString();
       newConnection(socket, addr);
     });
+
+    var onclose = once(function() {
+      if (connections[addr] !== socket) return;
+      delete connections[addr];
+    });
+
+    socket.on('close', onclose);
+    socket.on('error', onclose);
   });
   server.listen(myAddrSplit[1], myAddrSplit[0]);
 
@@ -60,6 +69,17 @@ var create = function(myAddr, addreses) {
 
   update();
   setInterval(update, 1000);
+  setInterval(function() {console.log(Object.keys(connections));}, 4000);
+
+  that.add = function(addr) {
+    if (!~addreses.indexOf(addr)) addreses.push(addr);
+    console.log(addreses);
+  };
+
+  that.remove = function(addr) {
+    if (~addreses.indexOf(addr)) addreses.splice(addreses.indexOf(addr), 1);
+    console.log(addreses);
+  };
 
   return that;
 };
