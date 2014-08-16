@@ -8,7 +8,12 @@ var network = fc(process.argv[2], hosts);
 network.on('connection', function(sock) {
   sock.on('data', function(data) {
     console.log(data.toString());
+    if (data.toString().indexOf('ADD:') === 0) network.add(data.toString().substr(4));
   });
 
-  sock.write('Hello world!');
+  var myAddr = addr + ':' + process.argv[2];
+  if (!~hosts.indexOf(myAddr)) {
+    sock.write('ADD:' + myAddr);
+    network.add(myAddr);
+  }
 });
