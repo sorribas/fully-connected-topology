@@ -1,15 +1,13 @@
 var net = require('net');
 var events = require('events');
-var lengthPrefixedMessages = require('length-prefixed-message');
+var lpm = require('length-prefixed-message');
 var once = require('once');
 var networkAddress = require('network-address');
 
 var create = function(myAddr, addreses) {
 
   var that = new events.EventEmitter();
-
   var connections = {};
-  var lpm = lengthPrefixedMessages({length: 2});
 
   if (typeof myAddr === 'number' || !~myAddr.indexOf(':')) {
     myAddr = networkAddress() + ':' + myAddr;
