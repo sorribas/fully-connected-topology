@@ -1,0 +1,25 @@
+{
+  "name": "fully-connected-topology",
+  "version": "0.0.0",
+  "description": "Create a fully connected network",
+  "main": "index.js",
+  "dependencies": {
+    "network-address": "~0.0.4",
+    "length-prefixed-message": "~1.0.0",
+    "once": "~1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sorribas/fully-connected-topology"
+  },
+  "author": "Eduardo Sorribas <eduardo@sorribas.org> (http://sorribas.org/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sorribas/fully-connected-topology/issues"
+  },
+  "homepage": "https://github.com/sorribas/fully-connected-topology"
+}
