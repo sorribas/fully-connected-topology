@@ -1,19 +1,17 @@
-var fc = require('./');
-var networkAddress = require('network-address');
-var addr = networkAddress();
-var hosts = [addr + ':4500', addr + ':4501', addr + ':4502'];
+var topology = require('./');
 
-var network = fc(process.argv[2], hosts);
+var t1 = topology('127.0.0.1:4001', ['127.0.0.1:4002', '127.0.0.1:4003']);
+var t2 = topology('127.0.0.1:4002', ['127.0.0.1:4001', '127.0.0.1:4003']);
+var t3 = topology('127.0.0.1:4003', ['127.0.0.1:4001', '127.0.0.1:4002']);
 
-network.on('connection', function(sock) {
-  sock.on('data', function(data) {
-    console.log(data.toString());
-    if (data.toString().indexOf('ADD:') === 0) network.add(data.toString().substr(4));
-  });
+t1.on('connection', function(connection, peer) {
+  console.log('t1 is connected to', peer);
+});
 
-  var myAddr = addr + ':' + process.argv[2];
-  if (!~hosts.indexOf(myAddr)) {
-    sock.write('ADD:' + myAddr);
-    network.add(myAddr);
-  }
+t2.on('connection', function(connection, peer) {
+  console.log('t2 is connected to', peer);
+});
+
+t3.on('connection', function(connection, peer) {
+  console.log('t3 is connected to', peer);
 });
