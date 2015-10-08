@@ -86,7 +86,7 @@ var Topology = function(me, peers) {
 
   events.EventEmitter.call(this);
 
-  if (peers) peers.forEach(this.add.bind(this));
+  if (peers) [].concat(peers).forEach(this.add.bind(this));
 };
 
 util.inherits(Topology, events.EventEmitter);
