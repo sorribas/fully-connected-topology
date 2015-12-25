@@ -139,7 +139,7 @@ Topology.prototype.remove = function(addr) {
   var peer = this.peers[addr];
   if (!peer) return;
 
-  delete this.peers[peer];
+  delete this.peers[addr];
   peer.host = null; // will stop reconnects
   if (peer.socket) peer.socket.destroy();
   if (peer.pendingSocket) peer.pendingSocket.destroy();
